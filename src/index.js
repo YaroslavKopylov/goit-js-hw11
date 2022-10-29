@@ -39,9 +39,9 @@ function onLoadMore() {
   newsApiService.page;
   fetchGallery();
 }
-searchBtn.addEventListener('click', () => {
-  Notify.success(`Hooray! We found 500 images !!!`);
-});
+// searchBtn.addEventListener('click', () => {
+//   Notify.success(`Hooray! We found 500 images !!!`);
+// });
 async function fetchGallery() {
   loadMoreBtn.classList.add('is-hidden');
 
@@ -62,7 +62,7 @@ async function fetchGallery() {
 
   if (isShown < totalHits) {
     // Показывает кнопку
-    // Notify.success(`Hooray! We found ${totalHits} images !!!`);
+    Notify.success(`Hooray! We found ${totalHits} images !!!`);
     loadMoreBtn.classList.remove('is-hidden');
   }
   // Если пользователь дошел до конца коллекции, пряч кнопку и выводи уведомление с текстом:
