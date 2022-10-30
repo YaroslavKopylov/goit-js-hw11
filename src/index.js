@@ -8,16 +8,16 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const searchForm = document.querySelector('.search-form'),
   galleryContainer = document.querySelector('.gallery'),
-  loadMoreBtn = document.querySelector('.load-more'),
-  searchBtn = document.querySelector('.search');
+  loadMoreBtn = document.querySelector('.load-more');
 
-let isShown;
+let isShown = 0;
 const newsApiService = new NewsApiService();
 
 searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
 
 //////---- FUNCTION ----////
+
 function onSearch(e) {
   e.preventDefault();
 
@@ -30,18 +30,14 @@ function onSearch(e) {
     return;
   }
 
-  isShown = 1;
-  fetchGallery();
-  onRenderGallery(hits);
+  fetchGallery(onRenderGallery);
 }
 
 function onLoadMore() {
   newsApiService.page;
   fetchGallery();
 }
-// searchBtn.addEventListener('click', () => {
-//   Notify.success(`Hooray! We found 500 images !!!`);
-// });
+
 async function fetchGallery() {
   loadMoreBtn.classList.add('is-hidden');
 
@@ -58,18 +54,17 @@ async function fetchGallery() {
   }
 
   onRenderGallery(hits);
-  isShown += hits.length;
+  hits.length += 1;
   console.log(isShown);
   console.log(hits);
 
-  if (isShown === 81 && totalHits !== 0) {
+  if (isShown === 40 && totalHits !== 0) {
     Notify.success(`Hooray! We found ${totalHits} images !!!`);
     loadMoreBtn.classList.remove('is-hidden');
   }
 
   if (isShown < totalHits) {
     //   // Показывает кнопку
-    //   // Notify.success(`Hooray! We found ${totalHits} images !!!`);
     loadMoreBtn.classList.remove('is-hidden');
   }
 
