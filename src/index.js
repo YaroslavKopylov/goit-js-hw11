@@ -11,7 +11,7 @@ const searchForm = document.querySelector('.search-form'),
   loadMoreBtn = document.querySelector('.load-more'),
   searchBtn = document.querySelector('.search');
 
-let isShown = 0;
+let isShown;
 const newsApiService = new NewsApiService();
 
 searchForm.addEventListener('submit', onSearch);
@@ -30,7 +30,7 @@ function onSearch(e) {
     return;
   }
 
-  isShown = 0;
+  isShown = 1;
   fetchGallery();
   onRenderGallery(hits);
 }
@@ -59,12 +59,20 @@ async function fetchGallery() {
 
   onRenderGallery(hits);
   isShown += hits.length;
+  console.log(isShown);
+  console.log(hits);
 
-  if (isShown < totalHits) {
-    // Показывает кнопку
+  if (isShown === 81 && totalHits !== 0) {
     Notify.success(`Hooray! We found ${totalHits} images !!!`);
     loadMoreBtn.classList.remove('is-hidden');
   }
+
+  if (isShown < totalHits) {
+    //   // Показывает кнопку
+    //   // Notify.success(`Hooray! We found ${totalHits} images !!!`);
+    loadMoreBtn.classList.remove('is-hidden');
+  }
+
   // Если пользователь дошел до конца коллекции, пряч кнопку и выводи уведомление с текстом:
   if (isShown >= totalHits) {
     Notify.info('We re sorry, but you have reached the end of search results.');
