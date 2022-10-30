@@ -54,7 +54,7 @@ async function fetchGallery() {
   }
 
   onRenderGallery(hits);
-  hits.length += 1;
+  hits.length;
   console.log(isShown);
   console.log(hits);
 
